@@ -7,7 +7,7 @@ void MouseMoveCommand::Execute() {
 
 	INPUT input = { 0 };
 	input.type = INPUT_MOUSE;
-	// Нормализация координат под требования Windows API (0 - 65535)
+	// РќРѕСЂРјР°Р»РёР·Р°С†РёСЏ РєРѕРѕСЂРґРёРЅР°С‚ РїРѕРґ С‚СЂРµР±РѕРІР°РЅРёСЏ Windows API (0 - 65535)
 	input.mi.dx = static_cast<LONG>(x_ * (65535.0 / screen_width));
 	input.mi.dy = static_cast<LONG>(y_ * (65535.0 / screen_height));
 	input.mi.dwFlags = MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE;
@@ -18,11 +18,11 @@ void MouseMoveCommand::Execute() {
 void MouseClickCommand::Execute() {
 	INPUT inputs[2] = { 0 };
 
-	// Нажатие ЛКМ
+	// РќР°Р¶Р°С‚РёРµ Р›РљРњ
 	inputs[0].type = INPUT_MOUSE;
 	inputs[0].mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
 
-	// Отпускание ЛКМ
+	// РћС‚РїСѓСЃРєР°РЅРёРµ Р›РљРњ
 	inputs[1].type = INPUT_MOUSE;
 	inputs[1].mi.dwFlags = MOUSEEVENTF_LEFTUP;
 

@@ -7,16 +7,16 @@
 #include <chrono>
 #include "command.h"
 
-// Класс-Одиночка (Singleton), управляющий макросом
+// РљР»Р°СЃСЃ-РћРґРёРЅРѕС‡РєР° (Singleton), СѓРїСЂР°РІР»СЏСЋС‰РёР№ РјР°РєСЂРѕСЃРѕРј
 class Autoclicker {
 public:
-    // Потокобезопасный Синглтон Майерса
+    // РџРѕС‚РѕРєРѕР±РµР·РѕРїР°СЃРЅС‹Р№ РЎРёРЅРіР»С‚РѕРЅ РњР°Р№РµСЂСЃР°
     static Autoclicker& GetInstance() {
         static Autoclicker instance;
         return instance;
     }
 
-    // Запрещаем копирование и присваивание по правилам Google Style
+    // Р—Р°РїСЂРµС‰Р°РµРј РєРѕРїРёСЂРѕРІР°РЅРёРµ Рё РїСЂРёСЃРІР°РёРІР°РЅРёРµ РїРѕ РїСЂР°РІРёР»Р°Рј Google Style
     Autoclicker(const Autoclicker&) = delete;
     Autoclicker& operator=(const Autoclicker&) = delete;
 
@@ -25,7 +25,7 @@ public:
     void RecordCurrentState();
     void Playback(int cycles);
 
-    // Инлайн геттеры (в нижнем регистре по Google Style)
+    // РРЅР»Р°Р№РЅ РіРµС‚С‚РµСЂС‹ (РІ РЅРёР¶РЅРµРј СЂРµРіРёСЃС‚СЂРµ РїРѕ Google Style)
     bool is_recording() const { return is_recording_; }
     size_t GetActionsCount() const { return history_.size(); }
 
@@ -37,7 +37,7 @@ private:
     int last_x_;
     int last_y_;
 
-    // Храним полиморфные умные указатели на базовый интерфейс команд
+    // РҐСЂР°РЅРёРј РїРѕР»РёРјРѕСЂС„РЅС‹Рµ СѓРјРЅС‹Рµ СѓРєР°Р·Р°С‚РµР»Рё РЅР° Р±Р°Р·РѕРІС‹Р№ РёРЅС‚РµСЂС„РµР№СЃ РєРѕРјР°РЅРґ
     std::vector<std::unique_ptr<Command>> history_;
     std::chrono::steady_clock::time_point last_time_point_;
 };

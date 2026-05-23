@@ -5,7 +5,7 @@
 #include "autoclicker.h"
 
 int main() {
-    // Получаем ссылку на единственный экземпляр кликера (Singleton)
+    // РџРѕР»СѓС‡Р°РµРј СЃСЃС‹Р»РєСѓ РЅР° РµРґРёРЅСЃС‚РІРµРЅРЅС‹Р№ СЌРєР·РµРјРїР»СЏСЂ РєР»РёРєРµСЂР° (Singleton)
     Autoclicker& clicker = Autoclicker::GetInstance();
 
     std::cout << "=========================================\n";
@@ -15,16 +15,16 @@ int main() {
     std::cout << "  F2 or Fn+F2  - Start / Stop Recording\n";
     std::cout << "  F3 or Fn+F3 - Play Recorded Actions\n";
     std::cout << "  F4 or Fn+F4 - Safe Exit Program\n";
-    std::cout << "  ESC - EMERGENCY STOP (during playback)\n"; // <--- ДОБАВИЛИ СТРОЧКУ
+    std::cout << "  ESC - EMERGENCY STOP (during playback)\n"; // <--- Р”РћР‘РђР’РР›Р РЎРўР РћР§РљРЈ
     std::cout << "=========================================\n\n";
 
     while (true) {
-        // Выход из программы
+        // Р’С‹С…РѕРґ РёР· РїСЂРѕРіСЂР°РјРјС‹
         if (GetAsyncKeyState(VK_F4) & 0x8000) {
             break;
         }
 
-        // Переключение записи (Старт/Стоп)
+        // РџРµСЂРµРєР»СЋС‡РµРЅРёРµ Р·Р°РїРёСЃРё (РЎС‚Р°СЂС‚/РЎС‚РѕРї)
         if (GetAsyncKeyState(VK_F2) & 0x8000) {
             if (clicker.is_recording()) {
                 clicker.StopRecording();
@@ -32,19 +32,19 @@ int main() {
             else {
                 clicker.StartRecording();
             }
-            std::this_thread::sleep_for(std::chrono::milliseconds(350)); // Анти-дребезг
+            std::this_thread::sleep_for(std::chrono::milliseconds(350)); // РђРЅС‚Рё-РґСЂРµР±РµР·Рі
         }
 
-        // Если активен режим записи — опрашиваем мышь
+        // Р•СЃР»Рё Р°РєС‚РёРІРµРЅ СЂРµР¶РёРј Р·Р°РїРёСЃРё вЂ” РѕРїСЂР°С€РёРІР°РµРј РјС‹С€СЊ
         if (clicker.is_recording()) {
             clicker.RecordCurrentState();
-            std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Частота ~60 Гц
+            std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Р§Р°СЃС‚РѕС‚Р° ~60 Р“С†
         }
 
-        // Воспроизведение макроса
+        // Р’РѕСЃРїСЂРѕРёР·РІРµРґРµРЅРёРµ РјР°РєСЂРѕСЃР°
         if (GetAsyncKeyState(VK_F3) & 0x8000) {
             if (!clicker.is_recording()) {
-                // Воспроизводим, например, 2 цикла. Можно сделать ввод через cin.
+                // Р’РѕСЃРїСЂРѕРёР·РІРѕРґРёРј, РЅР°РїСЂРёРјРµСЂ, 2 С†РёРєР»Р°. РњРѕР¶РЅРѕ СЃРґРµР»Р°С‚СЊ РІРІРѕРґ С‡РµСЂРµР· cin.
                 clicker.Playback(1);
             }
             else {
